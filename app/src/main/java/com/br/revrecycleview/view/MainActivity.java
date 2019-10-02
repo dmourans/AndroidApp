@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         listaAnimal.add(new Animal("Gato","Gato de botas do filme bonitinho", R.drawable.gato));
         listaAnimal.add(new Animal("Leão","Leão Scar do filme rei leao",R.drawable.leao));
         listaAnimal.add(new Animal("Cachorro","Cachorro vira latas toma tudo",R.drawable.cachorro));
+        listaAnimal.add(new Animal("Deivid","Humano homos sapiens",R.drawable.pessoais));
 
         return listaAnimal;
     }
