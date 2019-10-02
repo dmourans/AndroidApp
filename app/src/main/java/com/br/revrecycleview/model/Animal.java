@@ -1,8 +1,10 @@
 package com.br.revrecycleview.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ImageView;
 
-public class Animal {
+public class Animal implements Parcelable {
 
     private String nome;
     private String especie;
@@ -16,6 +18,24 @@ public class Animal {
 
     public Animal() {
     }
+
+    protected Animal(Parcel in) {
+        nome = in.readString();
+        especie = in.readString();
+        imagemAnimal = in.readInt();
+    }
+
+    public static final Creator<Animal> CREATOR = new Creator<Animal>() {
+        @Override
+        public Animal createFromParcel(Parcel in) {
+            return new Animal(in);
+        }
+
+        @Override
+        public Animal[] newArray(int size) {
+            return new Animal[size];
+        }
+    };
 
     public int getImagemAnimal() {
         return imagemAnimal;
@@ -42,5 +62,15 @@ public class Animal {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nome);
+        dest.writeString(especie);
+        dest.writeInt(imagemAnimal);
+    }
 }
