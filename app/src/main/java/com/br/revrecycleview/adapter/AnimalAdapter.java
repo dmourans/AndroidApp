@@ -12,16 +12,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.br.revrecycleview.R;
+import com.br.revrecycleview.interfaces.ItemClickListener;
 import com.br.revrecycleview.model.Animal;
+import com.br.revrecycleview.view.DetalheAnimalListener;
 
 import java.util.List;
 
 public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ViewHolder> {
 
     private List<Animal> listaAnimal;
+    private ItemClickListener itemClickListener;
 
-    public AnimalAdapter(List<Animal> listaAnimal) {
+    public AnimalAdapter(List<Animal> listaAnimal, ItemClickListener itemClickListener) {
         this.listaAnimal = listaAnimal;
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -34,9 +38,15 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        Animal animal = listaAnimal.get(position);
-
+        final Animal animal = listaAnimal.get(position);
         viewHolder.onBind(animal);
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClickListener.onClick(animal);
+            }
+        });
 
     }
 
@@ -62,7 +72,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ViewHolder
             Drawable drawable = itemView.getResources().getDrawable(animal.getImagemAnimal());
 
             imgAnimal.setImageDrawable(drawable);
-            txtEspecie.setText(animal.getEspecie());
+            txtEspecie.setText(animal.getNome());
 
         }
     }
